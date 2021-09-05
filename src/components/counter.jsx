@@ -1,43 +1,42 @@
-import React, { useState } from "react";
-const Counter = () => {
-    const [count, setCount] = useState(0);
+import React from "react";
+
+const Counter = ({ id, value, name, onIncrement, onDecrement, onDelete }) => {
     const classesBtn = "btn btn-secondary btn-sm";
 
-    const formCount = () => {
-        return count === 0 ? "Ноль" : count;
+    const formValue = () => {
+        return value === 0 ? "Ноль" : value;
     };
 
-    const getBageClasses = () => {
+    const getBadgeClasses = () => {
         let classes = "badge m-2 bg-";
-        classes += count === 0 ? "danger" : "primary";
+        classes += value === 0 ? "danger" : "primary";
 
         return classes;
     };
 
-    const handleIncrement = () => {
-        setCount(count + 1);
-    };
-
-    const handleDecrement = () => {
-        setCount(count - 1);
-    };
-
     return (
         <React.Fragment>
-            <span className={getBageClasses()}>{formCount()}</span>
+            <h4>{name}</h4>
+            <span className={getBadgeClasses()}>{formValue()}</span>
             <button
                 style={{ marginRight: "5px" }}
-                onClick={handleIncrement}
+                onClick={() => onIncrement(id)}
                 className={classesBtn}
             >
                 Increment
             </button>
             <button
-                onClick={handleDecrement}
+                onClick={() => onDecrement(id)}
                 className={classesBtn}
-                disabled={count === 0 ? true : false}
+                disabled={value === 0 ? true : false}
             >
                 Decrement
+            </button>
+            <button
+                className="btn btn-danger btn-sm m-2"
+                onClick={() => onDelete(id)}
+            >
+                Delete
             </button>
         </React.Fragment>
     );
